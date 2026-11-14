@@ -1,0 +1,21 @@
+# One URL shortener domain per line. Used by links.py to flag shortened links.
+bit.ly
+tinyurl.com
+goo.gl
+t.co
+ow.ly
+is.gd
+buff.ly
+rebrand.ly
+cutt.ly
+shorturl.at
+tiny.cc
+rb.gy
+s.id
+v.gd
+lnkd.in
+soo.gd
+qr.ae
+adf.ly
+tr.im
+clck.ru

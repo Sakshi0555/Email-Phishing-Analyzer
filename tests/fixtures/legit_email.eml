@@ -1,0 +1,41 @@
+From: "ExampleCorp Billing" <billing@examplecorp.com>
+To: user@example.com
+Reply-To: billing@examplecorp.com
+Subject: Your March invoice is ready
+Date: Tue, 03 Mar 2026 09:15:00 -0500
+Message-ID: <20260303091500.abc123@examplecorp.com>
+Return-Path: <billing@examplecorp.com>
+Received: from mx.examplecorp.com (mx.examplecorp.com [198.51.100.10])
+    by mail.example.com with ESMTPS id abc123 for <user@example.com>;
+    Tue, 03 Mar 2026 09:15:02 -0500
+Received: from mail.example.com (mail.example.com [198.51.100.20])
+    by inbound.example.com with ESMTP id def456;
+    Tue, 03 Mar 2026 09:15:05 -0500
+Authentication-Results: mx.google.com;
+    spf=pass smtp.mailfrom=billing@examplecorp.com;
+    dkim=pass header.i=@examplecorp.com;
+    dmarc=pass header.from=examplecorp.com
+Content-Type: multipart/alternative; boundary="BOUNDARY1"
+MIME-Version: 1.0
+
+--BOUNDARY1
+Content-Type: text/plain; charset="utf-8"
+
+Hi there,
+
+Your March invoice is ready. View it at https://examplecorp.com/invoices/march.
+
+Thanks,
+ExampleCorp Billing
+
+--BOUNDARY1
+Content-Type: text/html; charset="utf-8"
+
+<html><body>
+<p>Hi there,</p>
+<p>Your March invoice is ready. View it at
+<a href="https://examplecorp.com/invoices/march">https://examplecorp.com/invoices/march</a>.</p>
+<p>Thanks,<br>ExampleCorp Billing</p>
+</body></html>
+
+--BOUNDARY1--

@@ -1,0 +1,31 @@
+From: "PayPal Security" <security@paypa1-support.com>
+To: victim@example.com
+Reply-To: replies@totally-different-domain.ru
+Subject: Urgent: Your account has been limited
+Date: Tue, 03 Mar 2026 03:12:00 -0500
+Message-ID: <a1b2c3@paypa1-support.com>
+Return-Path: <bounce@paypa1-support.com>
+Authentication-Results: mx.google.com;
+    spf=fail smtp.mailfrom=security@paypa1-support.com;
+    dkim=fail header.i=@paypa1-support.com;
+    dmarc=fail header.from=paypa1-support.com
+Content-Type: multipart/alternative; boundary="BOUNDARY2"
+MIME-Version: 1.0
+
+--BOUNDARY2
+Content-Type: text/plain; charset="utf-8"
+
+Your account has been limited. Verify now: http://203.0.113.5/login
+Or use this link: http://bit.ly/paypal-verify-now
+
+--BOUNDARY2
+Content-Type: text/html; charset="utf-8"
+
+<html><body>
+<p>Dear Customer,</p>
+<p>Your account has been limited. Please verify your information immediately:</p>
+<p><a href="http://203.0.113.5/login">https://www.paypal.com/signin</a></p>
+<p>Or use this secure link: <a href="http://bit.ly/paypal-verify-now">click here</a></p>
+</body></html>
+
+--BOUNDARY2--

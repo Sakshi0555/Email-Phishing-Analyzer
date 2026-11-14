@@ -1,0 +1,51 @@
+[project]
+name = "phishing-analyzer"
+version = "0.1.0"
+description = "Standalone tool that parses raw .eml files and scores them for phishing indicators."
+requires-python = ">=3.9"
+readme = "README.md"
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Security",
+]
+dependencies = [
+    "requests>=2.31",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+web = [
+    "flask>=3.0",
+]
+dev = [
+    "pytest>=7.4",
+    "ruff>=0.5",
+    "black>=24.0",
+    "flask>=3.0",
+]
+
+[project.scripts]
+phishing-analyzer = "phishing_analyzer.cli:main"
+phishing-analyzer-web = "phishing_analyzer.web:main"
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["phishing_analyzer*"]
+
+[tool.setuptools.package-data]
+phishing_analyzer = ["data/*.txt", "data/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.ruff]
+line-length = 100

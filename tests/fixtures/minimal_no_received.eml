@@ -1,0 +1,9 @@
+From: "Internal Notice" <noreply@internal-system.example>
+To: user@example.com
+Subject: Password reset requested
+Date: Tue, 03 Mar 2026 03:12:00 -0500
+Message-ID: <xyz789@internal-system.example>
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+
+A password reset was requested for your account. If this wasn't you, contact IT.

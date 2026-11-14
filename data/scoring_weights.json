@@ -1,0 +1,20 @@
+{
+  "spf_fail": 15,
+  "dkim_fail": 15,
+  "dmarc_fail": 10,
+  "auth_missing": 5,
+  "from_replyto_mismatch": 10,
+  "display_name_spoof": 20,
+  "received_missing": 10,
+  "received_anomaly": 5,
+  "ip_literal_link": 15,
+  "shortener_link": 10,
+  "anchor_href_mismatch": 15,
+  "lookalike_domain": 25,
+  "homograph_domain": 25,
+  "ti_suspicious": 20,
+  "thresholds": {
+    "medium": 30,
+    "high": 60
+  }
+}
