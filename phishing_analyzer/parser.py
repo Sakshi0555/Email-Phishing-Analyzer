@@ -116,7 +116,7 @@ def _extract_bodies(msg: Message) -> tuple[str, str]:
 def _get_content_safe(part: Message) -> str:
     try:
         content = part.get_content()
-    except Exception:
+    except (ValueError, TypeError, LookupError):
         payload = part.get_payload(decode=True)
         if payload is None:
             return ""

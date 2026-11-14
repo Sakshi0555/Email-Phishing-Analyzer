@@ -92,7 +92,7 @@ def extract_links(email: ParsedEmail) -> list[LinkInfo]:
         parser = _AnchorExtractor()
         try:
             parser.feed(email.body_html)
-        except Exception:
+        except (ValueError, TypeError):
             pass
         for href, anchor_text in parser.links:
             domain = _domain_of_url(href)

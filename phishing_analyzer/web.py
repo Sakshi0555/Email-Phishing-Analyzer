@@ -769,7 +769,7 @@ def create_app() -> Flask:
 
         try:
             email = parse_eml_bytes(raw)
-        except Exception:
+        except (ValueError, TypeError):
             return render_template_string(
                 _INDEX_TEMPLATE,
                 error="The uploaded email could not be read. Please check the file.",
