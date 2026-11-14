@@ -1,4 +1,3 @@
-
 """Email Phishing Analyzer - Modern Flask Dashboard."""
 
 from __future__ import annotations
@@ -385,13 +384,16 @@ code {
 </style>
 """
 
-_INDEX_TEMPLATE = """
+_INDEX_TEMPLATE = (
+    """
 <!DOCTYPE html>
 <html>
 <head>
   <title>Email Phishing Analyzer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  """ + _STYLE + """
+  """
+    + _STYLE
+    + """
 </head>
 <body>
 <header class="topbar">
@@ -472,14 +474,18 @@ _INDEX_TEMPLATE = """
 </body>
 </html>
 """
+)
 
-_RESULT_TEMPLATE = """
+_RESULT_TEMPLATE = (
+    """
 <!DOCTYPE html>
 <html>
 <head>
   <title>Analysis Results - ShieldScan</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  """ + _STYLE + """
+  """
+    + _STYLE
+    + """
 </head>
 <body>
 <header class="topbar">
@@ -696,21 +702,17 @@ _RESULT_TEMPLATE = """
 </body>
 </html>
 """
+)
 
 
 def _ti_clients_available() -> bool:
-    return bool(
-        os.environ.get("VIRUSTOTAL_API_KEY")
-        or os.environ.get("URLHAUS_AUTH_KEY")
-    )
+    return bool(os.environ.get("VIRUSTOTAL_API_KEY") or os.environ.get("URLHAUS_AUTH_KEY"))
 
 
 def _friendly_reason(reason: str) -> str:
     translations = {
-        "From / Reply-To domain mismatch":
-            "The sender address and reply address use different domains.",
-        "From/Reply-To domain mismatch":
-            "The sender address and reply address use different domains.",
+        "From / Reply-To domain mismatch": "The sender address and reply address use different domains.",
+        "From/Reply-To domain mismatch": "The sender address and reply address use different domains.",
     }
     return translations.get(reason, reason)
 
@@ -723,9 +725,12 @@ def _check_status(value: str) -> tuple[str, str]:
     if value == "fail":
         return "Failed", "status-bad"
     if value in ("softfail", "temperror", "permerror"):
-        return value.replace("softfail", "Soft fail").replace(
-            "temperror", "Temporary error"
-        ).replace("permerror", "Permanent error"), "status-warning"
+        return (
+            value.replace("softfail", "Soft fail")
+            .replace("temperror", "Temporary error")
+            .replace("permerror", "Permanent error"),
+            "status-warning",
+        )
     if value == "none":
         return "Not available", "status-neutral"
     return "Unknown", "status-neutral"
@@ -782,12 +787,8 @@ def create_app() -> Flask:
         if request.form.get("ti") and _ti_clients_available():
             db_path = os.environ.get("TI_CACHE_DB", "ti_cache.sqlite3")
             cache_conn = init_cache_db(db_path)
-            vt_client = VirusTotalClient(
-                os.environ.get("VIRUSTOTAL_API_KEY") or None
-            )
-            urlhaus_client = URLHausClient(
-                os.environ.get("URLHAUS_AUTH_KEY") or None
-            )
+            vt_client = VirusTotalClient(os.environ.get("VIRUSTOTAL_API_KEY") or None)
+            urlhaus_client = URLHausClient(os.environ.get("URLHAUS_AUTH_KEY") or None)
             vt_limiter = VirusTotalRateLimiter(cache_conn)
 
             result = run_threat_intel(

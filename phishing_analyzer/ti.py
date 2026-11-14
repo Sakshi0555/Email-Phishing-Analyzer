@@ -1,4 +1,3 @@
-
 """M6/M7 - Threat intel cache + VirusTotal/URLhaus clients + verdict merge."""
 
 from __future__ import annotations
@@ -136,11 +135,7 @@ class VirusTotalClient:
         response.raise_for_status()
 
         data = response.json()
-        stats = (
-            data.get("data", {})
-            .get("attributes", {})
-            .get("last_analysis_stats", {})
-        )
+        stats = data.get("data", {}).get("attributes", {}).get("last_analysis_stats", {})
 
         malicious = stats.get("malicious", 0)
         suspicious = stats.get("suspicious", 0)
@@ -224,11 +219,7 @@ class VirusTotalRateLimiter:
         now = datetime.now(timezone.utc)
         cutoff = now - timedelta(seconds=60)
 
-        self._minute_calls = [
-            timestamp
-            for timestamp in self._minute_calls
-            if timestamp > cutoff
-        ]
+        self._minute_calls = [timestamp for timestamp in self._minute_calls if timestamp > cutoff]
 
         if len(self._minute_calls) >= self.PER_MINUTE:
             return False
@@ -363,32 +354,17 @@ def apply_ti_verdicts(
     result.ti_results = ti_results
 
     malicious_hits = [
-        item
-        for item in ti_results
-        if item.verdict in ("malicious", "malicious_historical")
+        item for item in ti_results if item.verdict in ("malicious", "malicious_historical")
     ]
 
-    suspicious_hits = [
-        item
-        for item in ti_results
-        if item.verdict == "suspicious"
-    ]
+    suspicious_hits = [item for item in ti_results if item.verdict == "suspicious"]
 
     if malicious_hits:
-        detail = ", ".join(
-            sorted(
-                {
-                    f"{item.domain} ({item.source})"
-                    for item in malicious_hits
-                }
-            )
-        )
+        detail = ", ".join(sorted({f"{item.domain} ({item.source})" for item in malicious_hits}))
 
         result.score = 100
         result.level = "high"
-        result.reasons.append(
-            f"Threat intel confirms malicious: {detail}"
-        )
+        result.reasons.append(f"Threat intel confirms malicious: {detail}")
 
         return result
 
@@ -411,18 +387,9 @@ def apply_ti_verdicts(
         elif result.score >= thresholds.get("medium", 30):
             result.level = "medium"
 
-        detail = ", ".join(
-            sorted(
-                {
-                    f"{item.domain} ({item.source})"
-                    for item in suspicious_hits
-                }
-            )
-        )
+        detail = ", ".join(sorted({f"{item.domain} ({item.source})" for item in suspicious_hits}))
 
-        result.reasons.append(
-            f"Threat intel flags as suspicious: {detail}"
-        )
+        result.reasons.append(f"Threat intel flags as suspicious: {detail}")
 
     return result
 
