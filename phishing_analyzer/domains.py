@@ -61,7 +61,7 @@ def _segments(label: str) -> list[str]:
 def _try_decode_idna(domain: str) -> str:
     try:
         return domain.encode("ascii").decode("idna")
-    except Exception:
+    except UnicodeError:
         return domain
 
 
